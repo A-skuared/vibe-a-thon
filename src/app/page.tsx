@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Zap, Microwave, Smartphone, Car, Wrench } from "lucide-react";
+import { Zap, Microwave, Smartphone, Car, Wrench, HeartPulse } from "lucide-react";
 import JugaadForm from "@/components/jugaad-form";
 
 const categories = [
@@ -11,6 +11,7 @@ const categories = [
   { name: 'Mobile', icon: Smartphone, prompt: 'My smartphone screen is cracked...' },
   { name: 'Vehicle', icon: Car, prompt: 'My car is making a weird noise...' },
   { name: 'Plumbing', icon: Wrench, prompt: 'I have a leaking pipe...' },
+  { name: 'Health', icon: HeartPulse, prompt: 'I am not feeling well and have symptoms like...' },
 ];
 
 export default function Home() {
@@ -38,7 +39,7 @@ export default function Home() {
       <main className="w-full max-w-4xl">
         <section className="mb-12 text-center">
           <h2 className="text-3xl font-bold font-headline text-foreground/90 mb-6">What needs fixing today?</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
             {categories.map((category) => (
               <Card 
                 key={category.name} 
@@ -62,7 +63,7 @@ export default function Home() {
       </main>
       <footer className="w-full max-w-2xl mt-16 text-center text-muted-foreground">
         <p>Built with ❤️ for the great Indian problem-solver.</p>
-        <p className="text-xs mt-1">Disclaimer: Please prioritize safety. For complex or dangerous issues, consult a professional.</p>
+        <p className="text-xs mt-1">Disclaimer: Please prioritize safety. For complex or dangerous issues, including health problems, consult a professional.</p>
       </footer>
     </div>
   );
