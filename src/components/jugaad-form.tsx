@@ -1,5 +1,5 @@
 'use client';
-import { useActionState, useState, useTransition } from 'react';
+import { useActionState } from 'react';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Mic, Camera, Bot, Loader2 } from 'lucide-react';
@@ -10,9 +10,13 @@ import SolutionCard from './solution-card';
 
 const initialState: SolutionState = { solution: null, isDangerous: false, warning: undefined, error: null };
 
-export default function JugaadForm() {
+type JugaadFormProps = {
+    problem: string;
+    setProblem: (problem: string) => void;
+};
+
+export default function JugaadForm({ problem, setProblem }: JugaadFormProps) {
     const [state, formAction, isPending] = useActionState(getSolutionAction, initialState);
-    const [problem, setProblem] = useState('');
 
     return (
         <section className="space-y-6">
