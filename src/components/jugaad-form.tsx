@@ -26,33 +26,31 @@ export default function JugaadForm({ problem, setProblem }: JugaadFormProps) {
 
     return (
         <section className="space-y-6">
-            <Card className="shadow-xl border-primary/20 backdrop-blur-sm bg-card/80 rounded-xl">
+            <Card>
                 <CardHeader className="text-center">
-                    <CardTitle className="font-headline text-3xl text-foreground/95">Describe Your Problem</CardTitle>
+                    <CardTitle>Describe Your Problem</CardTitle>
                     <CardDescription>The more detail, the better the jugaad!</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form action={(formData) => {
-                      if(problem && !isPending) formAction(formData);
-                    }} className="space-y-4">
+                    <form action={formAction} className="space-y-4">
                         <Textarea
                             name="problemDescription"
                             value={problem}
                             onChange={(e) => setProblem(e.target.value)}
                             placeholder="e.g., My mixer grinder is not starting..."
-                            className="min-h-[120px] text-base bg-background/50 focus-visible:ring-primary rounded-lg"
+                            className="min-h-[120px] text-base"
                             required
                         />
-                        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div className="flex justify-between items-center gap-4">
                             <div className="flex gap-2">
-                                <Button variant="outline" size="icon" type="button" aria-label="Use camera" className="bg-primary/10 text-primary hover:bg-primary/20 border-primary/20">
+                                <Button variant="outline" size="icon" type="button" aria-label="Use camera">
                                     <Camera className="h-5 w-5" />
                                 </Button>
-                                <Button variant="outline" size="icon" type="button" aria-label="Use microphone" className="bg-primary/10 text-primary hover:bg-primary/20 border-primary/20">
+                                <Button variant="outline" size="icon" type="button" aria-label="Use microphone">
                                     <Mic className="h-5 w-5" />
                                 </Button>
                             </div>
-                            <Button type="submit" disabled={isPending || !problem} size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-offset-2 focus:ring-primary">
+                            <Button type="submit" disabled={isPending || !problem} size="lg">
                                 {isPending ? (
                                     <>
                                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -71,8 +69,8 @@ export default function JugaadForm({ problem, setProblem }: JugaadFormProps) {
             </Card>
 
             {state?.error && (
-                <Alert variant="destructive" className="animate-in fade-in-50">
-                    <AlertTitle className="font-headline">Oops! Kuch gadbad ho gayi.</AlertTitle>
+                <Alert variant="destructive">
+                    <AlertTitle>Oops! Something went wrong.</AlertTitle>
                     <AlertDescription>{state.error}</AlertDescription>
                 </Alert>
             )}
