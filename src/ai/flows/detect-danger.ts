@@ -40,17 +40,24 @@ const detectDangerPrompt = ai.definePrompt({
   name: 'detectDangerPrompt',
   input: {schema: DetectDangerInputSchema},
   output: {schema: DetectDangerOutputSchema},
-  prompt: `You are an AI assistant designed to detect potentially dangerous situations in user-provided problem descriptions.
+  prompt: `You are an AI assistant designed to detect **genuinely dangerous situations** that require professional help.
 
-  Based on the following problem description, determine if it describes a situation that could be dangerous to the user. This includes any health-related symptoms (e.g., stomach ache, fever, injury) as well as physical dangers (e.g., electrical shock, gas leak, etc.).
+Analyze the user's problem description and determine if it falls into one of these categories:
+1.  **Any health-related symptom**: This includes anything from a minor stomach ache or fever to a serious injury. ALL health issues must be flagged as dangerous.
+2.  **Major Utilities Risk**: Problems involving gas leaks, main electrical supply (like the fuse box), or major plumbing that could cause significant flooding.
+3.  **High-Risk Situations**: Anything involving fire, structural damage to a building, or situations that could lead to immediate and serious physical harm.
 
-  Problem Description: {{{problemDescription}}}
+For minor issues like a clogged sink, a flickering lightbulb, a broken phone screen, or a software problem, you should **NOT** flag these as dangerous. The goal is to allow DIY solutions for common problems while stopping the user from attempting something truly unsafe.
 
-  Respond with a JSON object. The "isDangerous" field should be true if the problem is potentially dangerous, and false otherwise.
-  If "isDangerous" is true, the "dangerExplanation" field should provide a brief explanation of why the problem is dangerous and advise the user to seek professional help (e.g., "This could be a serious health issue. Please consult a doctor immediately.").
-  If "isDangerous" is false, the "dangerExplanation" field should be an empty string.
-  Follow the schema EXACTLY, and ensure the booleans are represented with true/false and not "true/false".
-  Ensure that the response is valid JSON.
+Problem Description: {{{problemDescription}}}
+
+Respond with a JSON object.
+- "isDangerous" must be \`true\` ONLY if the problem fits one of the dangerous categories listed above. Otherwise, it must be \`false\`.
+- If "isDangerous" is \`true\`, the "dangerExplanation" field should explain the specific risk and strongly advise seeking professional help (e.g., "Gas leaks are extremely dangerous. Please evacuate and call a professional immediately.").
+- If "isDangerous" is \`false\`, "dangerExplanation" should be an empty string.
+
+Follow the schema EXACTLY, and ensure the booleans are represented with true/false and not "true/false".
+Ensure that the response is valid JSON.
 `,
 });
 
